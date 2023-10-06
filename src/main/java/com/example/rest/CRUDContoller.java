@@ -21,39 +21,80 @@ public class CRUDContoller {
         this.crudService=crudService;
     }
 
-@PostMapping("/create")
-    public String addReward(@RequestBody REWARD reward) throws InterruptedException, ExecutionException{
-    return crudService.createCRUD(reward);
-}
-//
-//@GetMapping("/test")
-//    public ResponseEntity<String> testGetEndPoint(){
-//        return ResponseEntity.ok("Test .....");
-//    }
-//@GetMapping("")
-//    public CRUD getCRUD() throws InterruptedException, ExecutionException {
-//    return crudService.getCRUD();
-//}
 
-//    private CRUD crud;
-    private  List<CRUD> listCrud;
+    private  List<REWARD> listReward;
+    private List<CRUD> listCrud;
+    private  List<ITEMRELATION> listItemRelation;
+    private List<USERINFOR> listUserInfor;
+
+    private REWARD reward;
     private CRUD crud;
-    @Scheduled(cron = "15 * * * * ?")
-    public void updateTimeCRUD() throws ExecutionException, InterruptedException {
-        System.out.println("Updating CRUD object at " + LocalDateTime.now());
-        listCrud = crudService.getCRUDList();
-        System.out.println(listCrud.get(0));
+    private ITEMRELATION itemrelation;
+    private USERINFOR userinfor;
 
-
+    @PostMapping("/reward")
+    public String CreateReward(@RequestBody REWARD reward) throws InterruptedException, ExecutionException{
+        return crudService.createReward(reward);
     }
-    @GetMapping("")
-    public List<CRUD> getCRUD() throws InterruptedException, ExecutionException {
-    System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
+    @PostMapping("/item_relation")
+    public String CreateItemRelation(@RequestBody ITEMRELATION itemrelation) throws InterruptedException, ExecutionException{
+        return crudService.createItemRelation(itemrelation);
+    }
 
-        if(listCrud == null){
-            System.out.println("ko co gi");
+    @PostMapping("/user_infor")
+    public String CreateUserInfor(@RequestBody USERINFOR userinfor) throws InterruptedException, ExecutionException{
+        return crudService.createUserInfor(userinfor);
+    }
+
+    @PostMapping("/badge_relation")
+    public String CreateCrud(@RequestBody CRUD crud) throws InterruptedException, ExecutionException{
+        return crudService.createCrud(crud);
+    }
+
+
+    @GetMapping("/reward")
+    public List<REWARD> getReward() throws InterruptedException, ExecutionException {
+    System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
+        listReward = crudService.getRewardList();
+        if(listReward == null){
+            System.out.println("Danh sách reward rong");
 
         }
+        return listReward;
+    }
+
+    @GetMapping("/item_relation")
+    public List<ITEMRELATION> getListItemRelation() throws InterruptedException, ExecutionException {
+        System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
+        listItemRelation = crudService.getItemRelationList();
+        if(listItemRelation == null){
+            System.out.println("Danh sách reward rong");
+
+        }
+        return listItemRelation;
+    }
+
+    @GetMapping("/user_infor")
+    public List<USERINFOR> getListUserInfor() throws InterruptedException, ExecutionException {
+        System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
+        listUserInfor = crudService.getUserInfor();
+        if(listUserInfor == null){
+            System.out.println("Danh sách reward rong");
+
+        }
+        return listUserInfor;
+    }
+
+//đối tượng CRUD là badge_relation
+    @GetMapping("/badge_relation")
+    public List<CRUD> getCrud() throws InterruptedException, ExecutionException {
+        System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
+        listCrud = crudService.getCrudList();
+        if(listCrud == null){
+            System.out.println("Danh sách badge_relation rỗng");
+
+        }
+        System.out.println("danh sách badge_relation: "+listCrud);
         return listCrud;
     }
 

@@ -8,5 +8,6 @@ public class CRUD {
     private String badgeId;
     private String userId;
     private Boolean equipped;
+    private String badgeRelationId;
 
 }
