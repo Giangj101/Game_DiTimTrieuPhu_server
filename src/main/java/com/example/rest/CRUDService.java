@@ -19,7 +19,7 @@ public class CRUDService {
 
     public String createReward(REWARD reward)throws ExecutionException,InterruptedException{
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_badge_relation).document(reward.getRewardId()).set(reward);
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_reward).document(reward.getRewardId()).set(reward);
         return collectionsApiFuture.get().getUpdateTime().toString();
 
 
@@ -27,7 +27,7 @@ public class CRUDService {
 // CRUD là badge_relation
     public String createCrud(CRUD crud)throws ExecutionException,InterruptedException{
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_reward).document(crud.getBadgeRelationId()).set(crud);
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_badge_relation).document(crud.getBadgeRelationId()).set(crud);
         return collectionsApiFuture.get().getUpdateTime().toString();
 
 
