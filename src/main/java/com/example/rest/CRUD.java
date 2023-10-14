@@ -10,4 +10,12 @@ public class CRUD {
     private Boolean equipped;
     private String badgeRelationId;
 
+    public CRUD(REWARD reward) {
+        this.badgeId = reward.getBadgeId();
+        this.userId = reward.getUserId();
+        this.equipped = false;
+        this.badgeRelationId = reward.getRewardId();
+
+    }
+
 }

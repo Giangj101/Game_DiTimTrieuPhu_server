@@ -12,4 +12,7 @@ public class REWARD {
     private String rewardId;
 
 
+
+
 }
+

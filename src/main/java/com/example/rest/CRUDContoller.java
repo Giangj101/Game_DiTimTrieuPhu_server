@@ -26,12 +26,12 @@ public class CRUDContoller {
     private List<CRUD> listCrud;
     private  List<ITEMRELATION> listItemRelation;
     private List<USERINFOR> listUserInfor;
-
+//đoạn này viết nhầm
     private REWARD reward;
     private CRUD crud;
     private ITEMRELATION itemrelation;
     private USERINFOR userinfor;
-
+//
     @PostMapping("/reward")
     public String CreateReward(@RequestBody REWARD reward) throws InterruptedException, ExecutionException{
         return crudService.createReward(reward);
