@@ -21,11 +21,12 @@ public class RestApplication {
                 null;
         FirebaseOptions options;
         try {
-            serviceAccount = new FileInputStream("serviceAccount.json");
+            serviceAccount = new FileInputStream("D:\\Code\\Android Game\\Game_DiTimTrieuPhu_server\\src\\main\\resources\\service.json");
 
 
             options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://ditimtrieuphu-bbd1e-default-rtdb.asia-southeast1.firebasedatabase.app")
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e);

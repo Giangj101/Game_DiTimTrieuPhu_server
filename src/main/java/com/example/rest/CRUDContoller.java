@@ -1,10 +1,6 @@
 package com.example.rest;
 
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -22,28 +18,24 @@ public class CRUDContoller {
     }
 
 
-    private  List<REWARD> listReward;
+    private  List<Reward> listReward;
     private List<CRUD> listCrud;
-    private  List<ITEMRELATION> listItemRelation;
-    private List<USERINFOR> listUserInfor;
+    private  List<ItemRelation> listItemRelation;
+    private List<UserInfo> listUserInfor;
 //đoạn này viết nhầm
-    private REWARD reward;
+    private Reward reward;
     private CRUD crud;
-    private ITEMRELATION itemrelation;
-    private USERINFOR userinfor;
+    private ItemRelation itemrelation;
+    private UserInfo userInfo;
 //
-    @PostMapping("/reward")
-    public String CreateReward(@RequestBody REWARD reward) throws InterruptedException, ExecutionException{
-        return crudService.createReward(reward);
-    }
     @PostMapping("/item_relation")
-    public String CreateItemRelation(@RequestBody ITEMRELATION itemrelation) throws InterruptedException, ExecutionException{
+    public String CreateItemRelation(@RequestBody ItemRelation itemrelation) throws InterruptedException, ExecutionException{
         return crudService.createItemRelation(itemrelation);
     }
 
     @PostMapping("/user_infor")
-    public String CreateUserInfor(@RequestBody USERINFOR userinfor) throws InterruptedException, ExecutionException{
-        return crudService.createUserInfor(userinfor);
+    public String CreateUserInfor(@RequestBody UserInfo userInfo) throws InterruptedException, ExecutionException{
+        return crudService.createUserInfor(userInfo);
     }
 
     @PostMapping("/badge_relation")
@@ -53,7 +45,7 @@ public class CRUDContoller {
 
 
     @GetMapping("/reward")
-    public List<REWARD> getReward() throws InterruptedException, ExecutionException {
+    public List<Reward> getReward() throws InterruptedException, ExecutionException {
     System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
         listReward = crudService.getRewardList();
         if(listReward == null){
@@ -64,7 +56,7 @@ public class CRUDContoller {
     }
 
     @GetMapping("/item_relation")
-    public List<ITEMRELATION> getListItemRelation() throws InterruptedException, ExecutionException {
+    public List<ItemRelation> getListItemRelation() throws InterruptedException, ExecutionException {
         System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
         listItemRelation = crudService.getItemRelationList();
         if(listItemRelation == null){
@@ -75,7 +67,7 @@ public class CRUDContoller {
     }
 
     @GetMapping("/user_infor")
-    public List<USERINFOR> getListUserInfor() throws InterruptedException, ExecutionException {
+    public List<UserInfo> getListUserInfor() throws InterruptedException, ExecutionException {
         System.out.println("Send email 2 to producers to inform quantity sold items in " + LocalDateTime.now());
         listUserInfor = crudService.getUserInfor();
         if(listUserInfor == null){

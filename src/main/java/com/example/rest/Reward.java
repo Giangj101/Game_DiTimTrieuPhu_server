@@ -5,14 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class REWARD {
-    private String badgeId;
-    private String itemId;
+public class Reward {
+    private String id;
+    private String rewardMessage;
     private String userId;
-    private String rewardId;
-
-
-
-
 }
 

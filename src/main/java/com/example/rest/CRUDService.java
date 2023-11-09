@@ -17,41 +17,29 @@ public class CRUDService {
     private static final String COLLECTION_user_infor = "user_info";
 
 
-    public String createReward(REWARD reward)throws ExecutionException,InterruptedException{
+    public void createReward(Reward reward) throws ExecutionException,InterruptedException{
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_reward).document(reward.getRewardId()).set(reward);
-        return collectionsApiFuture.get().getUpdateTime().toString();
-
-
+        ApiFuture<DocumentReference> collectionsApiFuture = dbFirestore.collection(COLLECTION_reward).add(reward);
     }
+
 // CRUD là badge_relation
     public String createCrud(CRUD crud)throws ExecutionException,InterruptedException{
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_badge_relation).document(crud.getBadgeRelationId()).set(crud);
         return collectionsApiFuture.get().getUpdateTime().toString();
-
-
     }
-    public String createItemRelation(ITEMRELATION itemrelation)throws ExecutionException,InterruptedException{
+
+    public String createItemRelation(ItemRelation itemrelation)throws ExecutionException,InterruptedException{
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_item_relation).document(itemrelation.getItemRelationId()).set(itemrelation);
         return collectionsApiFuture.get().getUpdateTime().toString();
-
-
     }
 
-    public String createUserInfor(USERINFOR userinfor)throws ExecutionException,InterruptedException{
+    public String createUserInfor(UserInfo userInfo)throws ExecutionException,InterruptedException{
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_user_infor).document(userinfor.getUserId()).set(userinfor);
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COLLECTION_user_infor).document(userInfo.getUserId()).set(userInfo);
         return collectionsApiFuture.get().getUpdateTime().toString();
-
-
     }
-
-
-
-
-
 
 //    public CRUD getCRUD() throws ExecutionException, InterruptedException {
 //        Firestore dbFireStore = FirestoreClient.getFirestore();
@@ -65,15 +53,15 @@ public class CRUDService {
 //        }
 //        return null;
 //    }
-    public List<REWARD> getRewardList() throws ExecutionException, InterruptedException {
+    public List<Reward> getRewardList() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference collectionReference = dbFirestore.collection(COLLECTION_reward);
         ApiFuture<QuerySnapshot> future = collectionReference.get();
-        List<REWARD> rewardList = new ArrayList<>();
+        List<Reward> rewardList = new ArrayList<>();
 
         for (DocumentSnapshot document : future.get().getDocuments()) {
             if (document.exists()) {
-                REWARD reward = document.toObject(REWARD.class);
+                Reward reward = document.toObject(Reward.class);
                 rewardList.add(reward);
             }
         }
@@ -97,15 +85,15 @@ public class CRUDService {
         return crudList;
     }
 
-    public List<ITEMRELATION> getItemRelationList() throws ExecutionException, InterruptedException {
+    public List<ItemRelation> getItemRelationList() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference collectionReference = dbFirestore.collection(COLLECTION_item_relation);
         ApiFuture<QuerySnapshot> future = collectionReference.get();
-        List<ITEMRELATION> itemRelationList = new ArrayList<>();
+        List<ItemRelation> itemRelationList = new ArrayList<>();
 
         for (DocumentSnapshot document : future.get().getDocuments()) {
             if (document.exists()) {
-                ITEMRELATION itemrelation = document.toObject(ITEMRELATION.class);
+                ItemRelation itemrelation = document.toObject(ItemRelation.class);
                 itemRelationList.add(itemrelation);
             }
         }
@@ -113,23 +101,29 @@ public class CRUDService {
         return itemRelationList;
     }
 
-    public List<USERINFOR> getUserInfor() throws ExecutionException, InterruptedException {
+    public List<UserInfo> getUserInfor() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference collectionReference = dbFirestore.collection(COLLECTION_user_infor);
         ApiFuture<QuerySnapshot> future = collectionReference.get();
-        List<USERINFOR> userinforList = new ArrayList<>();
+        List<UserInfo> userInfoList = new ArrayList<>();
 
         for (DocumentSnapshot document : future.get().getDocuments()) {
             if (document.exists()) {
-                USERINFOR userinfor = document.toObject(USERINFOR.class);
-                userinforList.add(userinfor);
+                UserInfo userInfo = document.toObject(UserInfo.class);
+                userInfoList.add(userInfo);
             }
         }
 
-        return userinforList;
+        return userInfoList;
     }
 
+    public ApiFuture<WriteResult> updateUserInfo(UserInfo info) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        return dbFirestore.collection(COLLECTION_user_infor).document(info.getId()).set(info);
+    }
 
-
-
+    public ApiFuture<WriteResult> updateItemRelation(ItemRelation itemRelation) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        return dbFirestore.collection(COLLECTION_item_relation).document(itemRelation.getItemRelationId()).set(itemRelation);
+    }
 }
